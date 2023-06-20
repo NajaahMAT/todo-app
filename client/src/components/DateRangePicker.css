@@ -1,0 +1,35 @@
+.inputBox {
+	border-radius: 3px;
+	width: 100%;
+	text-align: center;
+  }
+
+  .calendarWrap {
+	display: inline-block;
+	position: relative;
+  }
+
+  .calendarElement {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 40px;
+	border: 1px solid #ccc;
+	z-index: 999;
+  }
+.searchField{
+    background-color: #2a7e91;
+    color:var(--white);
+    display: inline-block;
+    height: auto;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 1.6rem;
+    text-decoration: none;
+    text-transform: capitalize;
+    cursor: pointer;
+    overflow: hidden;
+    width:27%;
+}
