@@ -59,6 +59,27 @@ func (tr *taskRepository) FetchAllTasksByUserID(c context.Context, userID string
 
 	return tasks, err
 }
+func (tr *taskRepository) FetchAllTasks(c context.Context) ([]domain.Task, error) {
+	_, filename, line, _ := runtime.Caller(1)
+
+	collection := tr.database.Collection(tr.collection)
+
+	var tasks []domain.Task
+
+	cursor, err := collection.Find(c, bson.M{})
+	if err != nil {
+		log.Printf("[error] %s:%d %v\n", filename, line, err)
+		return nil, err
+	}
+
+	err = cursor.All(c, &tasks)
+	if tasks == nil {
+		log.Printf("[error] %s:%d %v\n", filename, line, err)
+		return []domain.Task{}, err
+	}
+
+	return tasks, err
+}
 
 func (tr *taskRepository) FetchTasksByDateRangeAndUserID(c context.Context, userID string, startDate string, endDate string) ([]domain.Task, error) {
 	_, filename, line, _ := runtime.Caller(1)

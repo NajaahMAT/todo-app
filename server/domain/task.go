@@ -52,6 +52,7 @@ type TaskRepository interface {
 	UpdateTaskByID(c context.Context, task *Task) error
 	UpdateTaskStatusByID(c context.Context, status string, id string) error
 	DeleteTaskByID(c context.Context, id string) error
+	FetchAllTasks(c context.Context) ([]Task, error)
 }
 
 type TaskUsecase interface {
@@ -63,4 +64,5 @@ type TaskUsecase interface {
 	UpdateTaskByID(c context.Context, task *Task) error
 	UpdateTaskStatusByID(c context.Context, status string, id string) error
 	DeleteTaskByID(c context.Context, id string) error
+	FetchAllTasks(c context.Context) ([]Task, error)
 }

@@ -27,3 +27,17 @@ func (u *UserController) GetUserProfile(c *gin.Context) {
 
 	c.JSON(http.StatusOK, user)
 }
+
+func (u *UserController) GetUserProfileByID(c *gin.Context) {
+	id := c.Param("id")
+
+	fmt.Println("user_id: ", id)
+
+	user, err := u.LoginUsecase.GetUserByID(c, id)
+	if err != nil {
+		c.JSON(http.StatusNotFound, domain.ErrorResponse{Message: "User not found with the given email"})
+		return
+	}
+
+	c.JSON(http.StatusOK, user)
+}

@@ -32,3 +32,9 @@ func (l *loginUsecase) CreateAccessToken(user *domain.User, secret string, expir
 func (l *loginUsecase) CreateRefreshToken(user *domain.User, secret string, expiry int) (refreshToken string, err error) {
 	return util.CreateRefreshToken(user, secret, expiry)
 }
+
+func (l *loginUsecase) GetUserByID(c context.Context, id string) (domain.User, error) {
+	ctx, cancel := context.WithTimeout(c, l.contextTimeout)
+	defer cancel()
+	return l.userRepository.GetByID(ctx, id)
+}

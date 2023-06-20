@@ -32,6 +32,7 @@ func NewTaskRouter(env *bootstrap.Env, t time.Duration, db mongo.Database, g *gi
 	}
 
 	g.POST("/task", tc.CreateTask)
+	g.GET("/tasks", tc.GetAllTasks)
 	g.GET("/task/user/:user_id", tc.GetTasksByUserID)
 	g.GET("/task/user/:user_id/status/:status", tc.GetTasksByStatus)
 	g.GET("/task/:id", tc.GetTaskByID)

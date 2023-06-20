@@ -34,10 +34,18 @@ func (t *TaskController) CreateTask(c *gin.Context) {
 
 	// dateTime, _ := time.Parse(domain.DateTimeLayout, request.CreatedAt)
 
+	var status string
+
+	if request.Status != "" {
+		status = request.Status
+	} else {
+		status = "todo"
+	}
+
 	task := domain.Task{
 		ID:          primitive.NewObjectID(),
 		Title:       request.Title,
-		Status:      request.Status,
+		Status:      status,
 		Description: request.Description,
 		File:        request.File,
 		CreatedAt:   time.Now(),
@@ -65,6 +73,18 @@ func (t *TaskController) GetTasksByUserID(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
+
+	c.JSON(http.StatusOK, tasks)
+}
+
+func (t *TaskController) GetAllTasks(c *gin.Context) {
+	tasks, err := t.TaskUsecase.FetchAllTasks(c)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	// fmt.Println(tasks)
 
 	c.JSON(http.StatusOK, tasks)
 }

@@ -20,4 +20,5 @@ func NewUserRouter(env *bootstrap.Env, t time.Duration, db mongo.Database, g *gi
 	}
 
 	g.GET("/user/email/:email", uc.GetUserProfile)
+	g.GET("/user/:id", uc.GetUserProfileByID)
 }

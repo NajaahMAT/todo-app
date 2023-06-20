@@ -52,7 +52,8 @@ func (l *LoginController) Login(c *gin.Context) {
 	loginResponse := domain.LoginResponse{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
-		UserID:       user.ID.Hex(),
+		User:         user,
+		Message:      "you have successfully login",
 	}
 
 	c.SetCookie("access_token", accessToken, l.Env.AccessTokenExpiryHour, "/", "localhost", false, true)
